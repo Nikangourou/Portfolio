@@ -102,7 +102,6 @@ function ready() {
         }
 
         function removeLoad() {
-            console.log(this)
             this.classList.remove('load');
             clearTimeout(timer);
         }
@@ -141,22 +140,22 @@ function ready() {
     }
 
     let index = 0
-    let textContainer = $('.textContainer')
+    let isLeft = false
+    let isRight = false
 
-    let isLeft
-    let isRight
     const loadBg = (ul) => {
 
         if (ul) {
-           
+
+            console.log(index)
+
             left = ul.parentNode.querySelector('.slideLeft')
             right = ul.parentNode.querySelector('.slideRight')
-            left.addEventListener('click', ()=>{isLeft = true})
-            right.addEventListener('click', ()=>{isRight = true})   
 
-            // Dégager les boolean pour mettre la fonction direct
-           
-            // problème de synchro des index 
+            left.addEventListener('click', () => { isLeft = true; isRight = false })
+            right.addEventListener('click', () => { isRight = true; isLeft = false })
+
+            let textContainer = ul.parentNode.querySelector('.textContainer')
             let length = ul.children.length
 
             // Supression des fleches si la liste ne contient qu'un seul elt
@@ -201,25 +200,13 @@ function ready() {
                 left.classList.add('disabled')
             }
 
-            if (!index == 0) {
-                textContainer.css('display', 'none')
+            if (index === 0) {
+                textContainer.style.display = "block"
             } else {
-                textContainer.css('display', 'block')
+                textContainer.style.display = "none"
             }
 
             ul.children[index].style.display = "block"
         }
     }
-
-    // Utilisation de boolean en attendant de trouver le 
-    // problème d'index d'ésynchronisé 
-
-    // left.click(() => {
-    //     loadBg(ul, true)
-    // })
-
-    // right.click(() => {
-    //     loadBg(ul, false, true)
-    // })
-
 }
