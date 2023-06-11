@@ -156,46 +156,39 @@ function ready() {
       let length = ul.children.length;
 
       // Supression des fleches si la liste ne contient qu'un seul elt
-      if (length === 1) {
-        left.style.display = "none";
-        right.style.display = "none";
-      } else {
-        left.style.display = "block";
-        right.style.display = "block";
-      }
+      if (length > 1) {
+        if (right.classList.contains("disabled"))
+          right.classList.remove("disabled");
 
-      if (right.classList.contains("disabled"))
-        right.classList.remove("disabled");
+        if (left.classList.contains("disabled"))
+          left.classList.remove("disabled");
 
-      if (left.classList.contains("disabled"))
-        left.classList.remove("disabled");
+        if (index === length - 1) {
+          right.classList.add("disabled");
+        }
+        if (index === 0) {
+          left.classList.add("disabled");
+        }
 
-      if (index === length - 1) {
-        right.classList.add("disabled");
-      }
-      if (index === 0) {
-        left.classList.add("disabled");
-      }
+        for (i = 0; i < length; i++) {
+          ul.children[i].style.display = "none";
+        }
 
-      for (i = 0; i < length; i++) {
-        ul.children[i].style.display = "none";
-      }
+        if (index > length - 1) {
+          index = length - 1;
+          right.classList.add("disabled");
+        }
+        if (index < 0) {
+          index = 0;
+          left.classList.add("disabled");
+        }
 
-      if (index > length - 1) {
-        index = length - 1;
-        right.classList.add("disabled");
+        if (index === 0) {
+          textContainer.style.display = "block";
+        } else {
+          textContainer.style.display = "none";
+        }
       }
-      if (index < 0) {
-        index = 0;
-        left.classList.add("disabled");
-      }
-
-      if (index === 0) {
-        textContainer.style.display = "block";
-      } else {
-        textContainer.style.display = "none";
-      }
-
       ul.children[index].style.display = "block";
     }
   };
